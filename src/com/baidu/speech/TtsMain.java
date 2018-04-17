@@ -40,7 +40,7 @@ public class TtsMain {
 
     private String cuid = "1234567JAVA";
 
-    private void run(String text) throws IOException, DemoException {
+    public void run(String text) throws IOException, DemoException {
         TokenHolder holder = new TokenHolder(appKey, secretKey, TokenHolder.ASR_SCOPE);
         holder.resfresh();
         String token = holder.getToken();
