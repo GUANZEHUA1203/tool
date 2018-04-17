@@ -21,7 +21,7 @@ public class AsrMain {
     public static void main(String[] args) throws IOException, DemoException {
         AsrMain demo = new AsrMain();
         // 填写下面信息
-        String result = demo.run();
+        String result = demo.run("C:\\\\16k.wav");
         
         System.out.println("识别结束：结果是：");
         
@@ -35,7 +35,7 @@ public class AsrMain {
     private final String secretKey = "584afc35374248e6f0a9634c9f42d3e3";
 
     // 需要识别的文件
-    private final String filename = "C:\\16k.wav";
+//    private final String  = "C:\\16k.wav";
 
     // 文件格式
     private final String format = "wav";
@@ -52,21 +52,21 @@ public class AsrMain {
 
     private final String url = "http://vop.baidu.com/server_api"; // 可以改为https
 
-    public String run() throws IOException, DemoException {
+    public String run(String filename) throws IOException, DemoException {
         TokenHolder holder = new TokenHolder(appKey, secretKey, TokenHolder.ASR_SCOPE);
         holder.resfresh();
         String token = holder.getToken();
         String result = null;
         if (methodRaw) {
-            result = runRawPostMethod(token);
+            result = runRawPostMethod(token,filename);
         } else {
-            result = runJsonPostMethod(token);
+            result = runJsonPostMethod(token,filename);
         }
         
         return result;
     }
 
-    private String runRawPostMethod(String token) throws IOException, DemoException {
+    private String runRawPostMethod(String token,String filename) throws IOException, DemoException {
         String url2 = url + "?cuid=" + ConnUtil.urlEncode(cuid) + "&dev_pid=" + dev_pid + "&token=" + token;
         //System.out.println(url2);
         byte[] content = getFileContent(filename);
@@ -81,7 +81,7 @@ public class AsrMain {
         return result;
     }
 
-    public String runJsonPostMethod(String token) throws DemoException, IOException {
+    public String runJsonPostMethod(String token,String filename) throws DemoException, IOException {
 
         byte[] content = getFileContent(filename);
         String speech = base64Encode(content);
