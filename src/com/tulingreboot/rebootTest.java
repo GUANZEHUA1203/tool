@@ -44,6 +44,7 @@ public class rebootTest {
 				sb.append(line);
 			}
 			JSONObject parseObject = JSONObject.parseObject(sb.toString());
+			System.out.println(parseObject);
 			return parseObject.getString("text");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
